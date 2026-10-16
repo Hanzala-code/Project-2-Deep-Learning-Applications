@@ -26,7 +26,7 @@
   the model is not wrong so much as the two classes genuinely overlap
   in these images, revealing a labelling ambiguity in the dataset
 
-- Next: my own domain in Week 6 — [PCB defect Detection]
+- Next: my own domain in Week 6 — PCB defect Detection
 
 ---
 
@@ -82,4 +82,4 @@ pip install torch torchvision
 # Dataset: Intel Image Classification (puneet6060)
 ```
 
-📓 [Week 5 Notebook — Transfer Learning]([(https://www.kaggle.com/code/hanzalabhatti/week-5-transfer-learning)])
+📓 [Week 5 Notebook — Transfer Learning](https://www.kaggle.com/code/hanzalabhatti/week-5-transfer-learning)
