@@ -26,14 +26,49 @@
   the model is not wrong so much as the two classes genuinely overlap
   in these images, revealing a labelling ambiguity in the dataset
 
-- Next: my own domain in Week 6 — [your domain idea here]
+- Next: my own domain in Week 6 — [PCB defect Detection]
 
 ---
 
 ### Week 6 Proposal
 
-[Write one paragraph here: your chosen domain, the problem it solves,
-who benefits, the candidate dataset link, number of classes and images]
+## Week 6 Proposal: PCB Defect Detection
+
+**Domain:** Printed Circuit Board (PCB) surface defect detection
+using deep learning image classification.
+
+**Problem:** Manual visual inspection of PCBs is slow, expensive, and
+error-prone — a single missed defect can cause an entire electronic
+device to fail in the field. Automating this with a trained CNN would
+allow manufacturers to inspect boards at production-line speed with
+consistent accuracy.
+
+**Who benefits:** Electronics manufacturers, quality control engineers,
+and PCB assembly lines — particularly relevant in Pakistan's growing
+electronics manufacturing sector. A reliable defect detector reduces
+waste, lowers rework costs, and prevents faulty products from reaching
+consumers.
+
+**Candidate dataset:** PCB Defect Dataset (Kaggle, maknight0/pcb-defects
+or the DeepPCB dataset) — contains labelled images of six common PCB
+defect types: missing hole, mouse bite, open circuit, short circuit,
+spur, and spurious copper. Approximately 1,500 to 2,000 images across
+6 classes, with a permissive license suitable for academic use.
+
+Dataset link: https://www.kaggle.com/datasets/akhatova/pcb-defects
+
+- Classes: 6 (missing_hole, mouse_bite, open_circuit,
+  short, spur, spurious_copper)
+- Images: ~1,500 training images
+- Input: microscope/X-ray PCB surface images, RGB
+
+**Why transfer learning fits:** PCB defect images share low-level
+features (edges, texture discontinuities, colour anomalies) with
+natural images, so ImageNet-pretrained ResNet weights provide a strong
+starting point even for this industrial domain. Week 5's pipeline
+(feature extraction then fine-tuning layer4) will be reused directly,
+with augmentation adjusted to avoid flips that would make a "spur"
+defect look like a different defect type.
 
 ---
 
@@ -47,4 +82,4 @@ pip install torch torchvision
 # Dataset: Intel Image Classification (puneet6060)
 ```
 
-📓 [Week 5 Notebook — Transfer Learning]([your Kaggle link here])
+📓 [Week 5 Notebook — Transfer Learning]([(https://www.kaggle.com/code/hanzalabhatti/week-5-transfer-learning)])
