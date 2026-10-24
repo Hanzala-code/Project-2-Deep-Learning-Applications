@@ -6,7 +6,7 @@
 
 **Why it matters:** a missed pneumonia delays treatment, while too many false flags overload the radiologist queue.
 
-**Dataset:** Chest X-Ray Images (Pneumonia), Paul Mooney on Kaggle, from Kermany et al. (2018); license CC BY 4.0 [verify on the Kaggle page]; 5,856 images (5,216 train, 624 test, 16 val folders), 2 classes; labels by expert physicians [verify in the dataset description]. Children aged 1 to 5 from one hospital in Guangzhou.
+**Dataset:** Chest X-Ray Images (Pneumonia), Paul Mooney on Kaggle, from Kermany et al. (2018); license CC BY 4.0; 5,856 images (5,216 train, 624 test, 16 val folders), 2 classes; labels by expert physicians. Children aged 1 to 5 from one hospital in Guangzhou.
 
 **Data audit:** imbalance ratio 2.9; exact duplicates 62 (all within one split: 50 in train, 12 in test; none across train and test); test images with a near-duplicate in train 0 of 624; split by patient (StratifiedGroupKFold), 0 shared groups; train 4,354, val 862, test 624.
 
