@@ -1,5 +1,30 @@
 # Project-2-Deep-Learning-Applications
 
+## Model card
+**Model:** ResNet-18 pretrained on ImageNet, with a new 2-class head (NORMAL, PNEUMONIA). Input: chest X-ray converted to grayscale, copied to 3 channels, resized to 224 x 224 and normalised with ImageNet mean and std.
+
+**Training:** two phases with Adam, weighted cross-entropy (weights NORMAL 1.935, PNEUMONIA 0.674), batch size 32. Phase 1 trained the head only (1,026 trainable parameters) for 2 epochs at lr 1e-3. Phase 2 also fine-tuned the last block (layer4) for 3 epochs at lr 1e-4 for the block and 1e-3 for the head. The best epoch was chosen by validation macro-F1 (0.954). Seed 42. Saved as week6_model.pt.
+
+**Intended use:** triage that prioritises a radiologist's queue for children's chest X-rays, working at a threshold of 0.405 chosen on validation for recall of at least 0.95.
+
+**Out of scope:** final diagnosis, adults, other age groups, other hospitals or scanners, and any setting where PPV at the local prevalence has not been checked.
+
+**Metrics (test, used once):** macro-F1 0.914; accuracy 0.923; AUC 0.978; sensitivity 0.995 and specificity 0.786 at threshold 0.405; PPV 0.886 at 62.5% prevalence and 0.197 at 5%.
+
+**Known failure modes:** 45 of 234 normal X-rays flagged as pneumonia at the default threshold (50 at 0.405). Grad-CAM on false positives highlights borders, shoulders and corners rather than lungs (shortcut suspected).
+
+## Datasheet
+
+**Motivation:** collected by Kermany et al. (2018) to develop and test AI for diagnosing pediatric pneumonia from chest X-rays; the Kaggle copy is by Paul Mooney.
+
+**Composition:** 5,856 images in the folders (5,216 train, 624 test, 16 val), 2 classes; 1,341 NORMAL and 3,875 PNEUMONIA in train (ratio 2.9); filenames carry patient ids (1.83 images per patient); 62 exact duplicate files, all within one split.
+
+**Collection:** retrospective clinical X-rays of children aged 1 to 5 from one hospital in Guangzhou. The time period and the imaging devices are not stated in the dataset description.
+
+**Labelling:** diagnoses graded by expert physicians (two per image, with the evaluation set checked by a third). How disagreements were handled is not described on the Kaggle page.
+
+**Uses:** research and education; not for diagnosis or for other populations.
+
 ## Week 6: Pediatric chest X-ray pneumonia screening with ResNet-18
 
 **Who benefits:** radiologists and clinics triaging children's chest X-rays where radiologists are scarce.
