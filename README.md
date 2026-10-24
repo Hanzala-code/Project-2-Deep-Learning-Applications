@@ -1,4 +1,13 @@
 # Project-2-Deep-Learning-Applications
+## Week 6: Pediatric chest X-ray pneumonia screening with ResNet-18
+**Who benefits:** radiologists and clinics triaging children's chest X-rays where radiologists are scarce. **Why it matters:** a missed pneumonia delays treatment, while too many false flags overload the radiologist queue.
+**Dataset:** Chest X-Ray Images (Pneumonia), Paul Mooney on Kaggle, from Kermany et al. (2018); license CC BY 4.0 [verify on the Kaggle page]; 5,856 images (5,216 train, 624 test, 16 val folders), 2 classes; labels by expert physicians [verify in the dataset description]. Children aged 1 to 5 from one hospital in Guangzhou.
+**Data audit:** imbalance ratio 2.9; exact duplicates 62 (all within one split: 50 in train, 12 in test; none across train and test); test images with a near-duplicate in train 0 of 624; split by patient (StratifiedGroupKFold), 0 shared groups; train 4,354, val 862, test 624.
+**Imbalance handling:** weighted loss, weights NORMAL 1.935 and PNEUMONIA 0.674.
+**Results (test, used once):** macro-F1 0.914; recall NORMAL 0.808 and PNEUMONIA 0.992; sensitivity 0.995 and specificity 0.786 at threshold 0.405 (set on validation); AUC 0.978; PPV 0.886 at test prevalence and 0.197 at 5% prevalence.
+**Grad-CAM:** on correct predictions the model looks at the lung fields; on the three false positives inspected it looks at borders, shoulders and corners. Shortcut risk: suspected, checked so far only by inspection (next step: border-crop and re-score).
+**Limitations:** pediatric patients from one hospital, 1.83 images per patient, a single test set, and Grad-CAM is coarse. Not for final diagnosis.
+
 ## Project 2, Week 5: Scene Classification with Transfer Learning
 
 - Dataset: Intel Image Classification, 6 classes
