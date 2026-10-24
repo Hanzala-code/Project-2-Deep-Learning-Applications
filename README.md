@@ -18,6 +18,8 @@
 
 **Limitations:** pediatric patients from one hospital, 1.83 images per patient, a single test set, and Grad-CAM is coarse. Not for final diagnosis.
 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
 ## Week 5: Scene Classification with Transfer Learning
 
 - Dataset: Intel Image Classification, 6 classes
