@@ -1,5 +1,28 @@
 # Project-2-Deep-Learning-Applications
 
+## Week 7: Text and Multimodal AI
+- Text classifier: SMS Spam Collection, 5,572 texts (13.4% spam), macro-F1 0.974 (word 1-2 grams) vs 0.982 (char 2-5 grams); spam precision/recall 0.979/0.933 (word) vs 0.986/0.953 (char)
+- Top positive / negative features: call, txt, free, text, reply, claim / my, me, ok, that, it, but (some, like "to" and "your", look like style shortcuts)
+- NER on my domain (clinical notes): out-of-the-box held-out F1 0.600 -> with entity ruler 0.839 (16 gold entities, so small-sample; rules written from 5 sentences, scored on the other 5)
+- Regex fields extracted: CNIC, mobile, amount, date, email, invoice no., plus temperature, SpO2, age, dose, MRN; false positives tested: 4 domain negatives, all passed ("Ward 12 F block", "Stage 4 disease", "12 mgmt office", "MRN 123456789, SpO2 1920%")
+- OCR: CER raw 0.062 / 0.059 / 0.143 -> after correction rules 0.000 on all three test pairs; invoice OCR 0.000 raw and after (clean synthetic image)
+- Pipeline: image model + text evidence -> JSON record (example below)
+- Privacy: CNIC, phone, and email masked before logging
+
+Example record (chest X-ray model + clinical note):
+{
+  "image": "person100_bacteria_475.jpeg",
+  "image_probabilities": {"NORMAL": 0.007, "PNEUMONIA": 0.993},
+  "note_masked": "Child aged 4, fever for 3 days and fast breath. Seen at PIMS Islamabad on 12/09/2026. Guardian mobile [PHONE].",
+  "text_evidence": {
+    "entities": [["4","DATE"],["3 days","DATE"],["PIMS","ORG"],["12/09/2026","DATE"]],
+    "fields": {"date": ["12/09/2026"]},
+    "urgent_terms": ["fever", "breath"]
+  },
+  "decision": "REFER",
+  "reasons": ["image model: P(PNEUMONIA) = 0.99", "note mentions: fever, breath"],
+  "disclaimer": "Decision support only; a qualified human decides."
+}
 ## Model card
 **Model:** ResNet-18 pretrained on ImageNet, with a new 2-class head (NORMAL, PNEUMONIA). Input: chest X-ray converted to grayscale, copied to 3 channels, resized to 224 x 224 and normalised with ImageNet mean and std.
 
